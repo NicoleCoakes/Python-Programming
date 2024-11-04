@@ -1,0 +1,99 @@
+# Nicole Coakes MGMT 568 Lab 2: Auto Dealership Loan Calculator
+#This program will tell a buyer how much they can afford to spend on a vehicle, and how much their maximum approved monthly payment is.
+	#Before you start, Please advise your buyer to have their gross annual income, credit score, and preapproved interest rate on hand.
+
+######################################################################################################################
+
+#Maximum Monthly Payment Function: This will return the most a lender will authorize monthly 
+	# based on the applicant's credit score and annual gross income.  
+
+def functionMonthlyPayment(passedCreditScore, passedMonthlyGrossIncome):
+    if passedCreditScore > 720:
+	    paymentPercentage = 0.30
+    elif passedCreditScore > 639:
+	    paymentPercentage = 0.20
+    elif passedCreditScore > 589:
+	    paymentPercentage = 0.17
+    elif passedCreditScore > 0:
+	    paymentPercentage = 0.15
+    else:
+	    print('Your input is invalid. Please verify your input and restart the program.')
+
+#Calculate the portion of monthly income that can be allocated to their vehicle payment, and print it for the applicant.
+    calculatedMonthlyPayment = paymentPercentage * passedMonthlyGrossIncome
+
+    print('Your monthly gross income is: $', passedMonthlyGrossIncome, '.')
+    print('Based on your monthly gross income and your credit score, you qualify for a maximum monthly payment of ', (paymentPercentage * 100), '% of your monthly gross income')
+
+#Return calculated monthly payment to function call statement as variable maxMonthlyPayment to be used in the rest of the program. 
+    return calculatedMonthlyPayment	
+
+#######################################################################################################################
+
+#Function to calculate the maximum total loan amount using the calculated monthly payment from the previous function,
+	# the monthly interest rate, and the loan length.
+
+def functionPrincipleCalculation(passedMonthlyPayment, passedMonthlyInterest, passedLoanLength): 
+    maxPrinciple = (passedMonthlyPayment / passedMonthlyInterest) * (1 - (1 + passedMonthlyInterest) ** -passedLoanLength)
+
+#Return the results of this calculation to the function call as variable maxPrinciple.    
+    return maxPrinciple
+
+#######################################################################################################################
+
+
+#Start of Program with while loop and boolean restart method.
+
+print('Welcome to the Loan generator. Do you want to scam some people out of their money?')
+print('If so, please ask your customer to have their annual gross income, credit score, and preapproved interest rate available.')
+print('Are you ready? Y/N')
+moreLoans = input()
+loanNumber = 1
+
+while moreLoans == 'Y': 
+
+    print('Loan #', loanNumber)
+
+#Gather user input and assign variables. 
+    print('What is your credit score? Enter in whole numbers: i.e. 700')
+    creditScore = float(input())
+    print('What is your annual gross income, entered in whole dollars with no comma or $ sign? i.e. 70000')
+    annualGrossIncome = float(input())
+    monthlyGrossIncome = float(annualGrossIncome / 12)
+    print('Please enter your annual interest rate. Do not include a percentage sign: i.e. 2.59')
+    annualInterestRate = float(input())
+    monthlyInterestRate = float((annualInterestRate / 100) / 12)
+    print('Please enter the length of your loan in months: i.e. enter a 4 year loan as 48')
+    loanLength = float(input())
+
+
+#Call functions using variable values. Calculate and print multiple data points, to include maximum loan amount and monthly payment. 
+    
+    print('=====================================================================================================')
+    print('Loan #', loanNumber)  
+    
+    maxMonthlyPayment = functionMonthlyPayment(creditScore, monthlyGrossIncome)
+  
+    print('Your maximum monthly payment is: $', maxMonthlyPayment, '.')
+    maxPrinciple = functionPrincipleCalculation(maxMonthlyPayment, monthlyInterestRate, loanLength)
+    print('Your maximum total loan amount is: $', maxPrinciple, '.')
+    print('======================================================================================================')
+
+#Ask the user if they have more loans to process.
+    print('Do you have additional loans to process? Y/N')
+    moreLoans = input()
+    if moreLoans == 'Y':
+          loanNumber = loanNumber + 1
+
+#Either restart the loop or break, based on user input. 
+    if 'Y' in moreLoans:
+        continue
+    else:
+        print('=================================================================================================')
+        print('=================================================================================================')
+        print('Coffee is for closers. Go make the deal.')
+        print('=================================================================================================')
+        print('=================================================================================================')
+        break
+	
+#End of program.
