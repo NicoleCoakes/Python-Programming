@@ -2,6 +2,8 @@
 Python Projects
 
 Vehicle Checkin: 
+
+
   Assigned while studying at Purdue University, MGMT 586
   Purpose: allow a user to document vehicles received by a car dealership. 
   Skills included:
@@ -20,6 +22,8 @@ Vehicle Checkin:
 
 
 Vehicle Checkin (With While Loop):
+
+
   Same as above, but using a While Loop instead of reiterating the same block of code over and over. 
   This program allows the user to enter as many vehicles as they want, but because we were not permitted to use dictionaries, the 
     information isn't stored anywhere. Each variable is overwritten with each loop. That said, results are printed out at the end
@@ -30,6 +34,8 @@ Vehicle Checkin (With While Loop):
 
 
   Coffee is for Closers:
+
+  
     Assigned while studying at Purdue University, MGMT 586
     Purpose: To allow dealership salespeople to quickly calculate a customer's maximum loan principle and monthly payment. 
     Skills included:
