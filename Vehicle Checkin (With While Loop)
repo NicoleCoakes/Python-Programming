@@ -1,0 +1,89 @@
+# Initialize variables for totals and car count, and set baseline values for calculations.
+shipmentMSRP = 0
+shipmentCost= 0
+shipmentProfit = 0
+shipmentProfitAdjusted = 0
+entryNumber = 0
+
+#Greet the user and ask them if they have vehicles to check in. 
+
+print('Hello! Congratulations on your shipment. Feel free to do your job...')
+moreCars = input('Do you have vehicles to check in? Y/N')
+
+#Begin collecting vehicle data using a while loop based on whether the user indicates that they have additional checkins. 
+
+while moreCars == 'Y':
+    
+    #Add a vehicle to the running total of entries. 
+    entryNumber = entryNumber + 1  
+  
+    # Collect car information
+    vehicleName = input("Enter the car name (e.g., Red 1969 Triumph TR6): ")
+    vehicleCost = int(input("Enter the cost of the car (in whole dollars, without $ sign): "))
+    vehicleMSRP = int(input("Enter the MSRP (manufacturer's suggested retail price, in whole dollars, without $ sign): "))
+    vehicleOrigin = int(input("Enter the car type code (0 = domestic, 1 = import): "))
+    
+    #Convert binary origin entry to plain text
+    if vehicleOrigin == 0:
+        vehicleOriginPlainText = 'Domestic'
+    else:
+        vehicleOriginPlainText = 'Imported'
+    
+    # Calculate gross profit
+    vehicleProfit = vehicleMSRP - vehicleCost
+    
+    # Calculate adjusted profit based on 1.75% loss for imported vehicles. 
+    if vehicleOrigin == 1:  
+        vehicleProfitAdjusted = vehicleProfit * (1 - 0.0175) 
+    else:
+        vehicleProfitAdjusted = vehicleProfit  
+    
+    # Add cost and profit data to shipment totals.
+    shipmentMSRP += vehicleMSRP
+    shipmentCost += vehicleCost
+    shipmentProfit += vehicleProfit
+    shipmentProfitAdjusted += vehicleProfitAdjusted
+    
+    print("""
+    """)
+    
+    # Print details for each car
+    
+    print('--------------------------------Vehicle #: ', entryNumber, '--------------------------------')
+    print("Car Name:", vehicleName)
+    print("Cost:", vehicleCost)
+    print("MSRP:", vehicleMSRP)
+    print("Potential Gross Profit:", vehicleProfit)
+    print("Adjusted Potential Gross Profit:", vehicleProfitAdjusted)
+    print("Origin:", vehicleOriginPlainText)
+    print('--------------------------------------------------------------------------------------------')
+    print("""
+    """)
+    
+    # Opportunity to reset moreCars and either restart or end the while loop. 
+    
+    print('You have checked in', entryNumber, 'vehicle(s).')
+    moreCars = input('Do you have additional vehicles to check in? Y/N')
+
+    print("""
+    """)
+    
+# Print totals for the shipment
+print("""
+
+
+""")
+print('--------------------------------Shipment Summary-------------------------------------------')
+print('Number of Vehicles: ', entryNumber)
+print("Total MSRP:", shipmentMSRP)
+print("Total Cost:", shipmentCost)
+print("Total Potential Gross Profit:", shipmentProfit)
+print("Total Adjusted Potential Gross Profit:", shipmentProfitAdjusted)
+print('--------------------------------------------------------------------------------------------')
+
+
+
+
+
+
+
