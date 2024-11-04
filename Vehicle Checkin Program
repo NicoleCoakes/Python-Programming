@@ -1,0 +1,281 @@
+# Nicole Coakes - Completed solo
+# MGMT 58600 - Lab 1 - Krannert Motors
+
+# This program will allow employees to check in new vehicles. 
+# It will store each vehicle in a separate variable set. 
+# It will then print individual vehicle information as well
+# as a summary of the shipment. 
+
+
+#-------------------------------------------------------------
+
+# Start of program
+
+#-------------------------------------------------------------
+
+# Assign variables to hold shipment totals. 
+# Set baselines for calculations. 
+
+shipmentMSRP = 0
+shipmentCost = 0
+shipmentProfit = 0
+shipmentProfitAdjusted = 0
+entryNumber = 0
+
+
+#--------------------------------------------------------------
+
+# Start of user input prompts. 
+
+# Greet the user and tell them what the program will do. 
+
+print('Hello! You may enter 5 vehicles at a time using this program.')
+moreCars = input('Input Y to begin data entryY: ')
+
+#------------------------------------------------------------------------------------------------
+
+if moreCars == 'Y':
+
+# Collect vehicle 1 information via user input.
+
+	entryNumber = entryNumber + 1
+	
+	print('Please answer the following questions pertaining to vehicle ', entryNumber, ': ')
+
+	vehicle1Name = input('Enter the vehicle name (ie: Silver 2024 Tesla Cybertruck): ')
+	vehicle1Cost = int(input('Enter the dealer cost for this vehicle in whole numbers, no $ sign: '))
+	vehicle1MSRP = int(input('Enter the vehicle MSRP (whole numbers, no $ sign): '))
+	vehicle1Origin = int(input('Enter the vehicle origin type. 0 = Domestic, 1 = Imported: '))
+
+# Convert origin code to plain text. 
+	
+	if vehicle1Origin == 0:
+		vehicle1OriginPlainText = "Domestic"
+	else:
+		vehicle1OriginPlainText = "Imported"
+
+# Calculate vehicle 1 gross profit.
+
+	vehicle1Profit = vehicle1MSRP - vehicle1Cost
+
+# Adjust profit for imports based on 1.75% loss. 
+	
+	if vehicle1Origin == 1:
+		vehicle1ProfitAdjusted = vehicle1Profit * (1 - 0.0175)
+	else:
+		vehicle1ProfitAdjusted = vehicle1Profit
+
+#Add Vehicle 1 financial data to shipment totals.
+
+	shipmentMSRP = shipmentMSRP + vehicle1MSRP
+	shipmentCost = shipmentCost + vehicle1Cost
+	shipmentProfit = shipmentProfit + vehicle1Profit
+	shipmentProfitAdjusted = shipmentProfitAdjusted + vehicle1ProfitAdjusted	
+
+#-----------------------------------------------------------------------------------------------
+# Collect vehicle 2 information via user input.
+	entryNumber = entryNumber + 1
+	print('Please answer the following questions pertaining to vehicle ', entryNumber, ': ')
+	vehicle2Name = input('Enter the vehicle name (ie: Silver 2024 Tesla Cybertruck): ')
+	vehicle2Cost = int(input('Enter the dealer cost for this vehicle in whole numbers, no $ sign: '))
+	vehicle2MSRP = int(input('Enter the vehicle MSRP in whole numbers, no $ sign: '))
+	vehicle2Origin = int(input('Enter the vehicle origin type. 0 = Domestic, 1 = Imported: '))
+
+# Convert origin code to plain text. 
+	
+	if vehicle2Origin == 0:
+		vehicle2OriginPlainText = "Domestic"
+	else:
+		vehicle2OriginPlainText = "Imported"
+
+# Calculate vehicle 2 gross profit.
+
+	vehicle2Profit = vehicle2MSRP - vehicle2Cost
+
+# Adjust profit for imports based on 1.75% loss. 
+	
+	if vehicle2Origin == 1:
+		vehicle2ProfitAdjusted = vehicle2Profit * (1 - 0.0175)
+	else:
+		vehicle2ProfitAdjusted = vehicle2Profit
+
+#Add Vehicle 2 financial data to shipment totals.
+
+	shipmentMSRP = shipmentMSRP + vehicle2MSRP
+	shipmentCost = shipmentCost + vehicle2Cost
+	shipmentProfit = shipmentProfit + vehicle2Profit
+	shipmentProfitAdjusted = shipmentProfitAdjusted + vehicle2ProfitAdjusted	
+
+#-----------------------------------------------------------------------------------------------
+# Collect vehicle 3 information via user input.
+	entryNumber = entryNumber + 1
+	print('Please answer the following questions pertaining to vehicle ', entryNumber, ': ')
+	vehicle3Name = input('Enter the vehicle name (ie: Silver 2024 Tesla Cybertruck): ')
+	vehicle3Cost = int(input('Enter the dealer cost for this vehicle in whole numbers, no $ sign: '))
+	vehicle3MSRP = int(input('Enter the vehicle MSRP in whole numbers, no $ sign: '))
+	vehicle3Origin = int(input('Enter the vehicle origin type. 0 = Domestic, 1 = Imported: '))
+
+# Convert origin code to plain text. 
+	
+	if vehicle3Origin == 0:
+		vehicle3OriginPlainText = "Domestic"
+	else:
+		vehicle3OriginPlainText = "Imported"
+
+# Calculate vehicle 3 gross profit.
+
+	vehicle3Profit = vehicle3MSRP - vehicle3Cost
+
+# Adjust profit for imports based on 1.75% loss. 
+	
+	if vehicle3Origin == 1:
+		vehicle3ProfitAdjusted = vehicle3Profit * (1 - 0.0175)
+	else:
+		vehicle3ProfitAdjusted = vehicle3Profit
+
+#Add Vehicle 3 financial data to shipment totals.
+
+	shipmentMSRP = shipmentMSRP + vehicle3MSRP
+	shipmentCost = shipmentCost + vehicle3Cost
+	shipmentProfit = shipmentProfit + vehicle3Profit
+	shipmentProfitAdjusted = shipmentProfitAdjusted + vehicle3ProfitAdjusted
+
+#-----------------------------------------------------------------------------------------------
+# Collect vehicle 4 information via user input.
+	entryNumber = entryNumber + 1
+	print('Please answer the following questions pertaining to vehicle ', entryNumber, ': ')
+	vehicle4Name = input('Enter the vehicle name (ie: Silver 2024 Tesla Cybertruck): ')
+	vehicle4Cost = int(input('Enter the dealer cost for this vehicle in whole numbers, no $ sign: '))
+	vehicle4MSRP = int(input('Enter the vehicle MSRP in whole numbers, no $ sign: '))
+	vehicle4Origin = int(input('Enter the vehicle origin type. 0 = Domestic, 1 = Imported: '))
+
+# Convert origin code to plain text. 
+	
+	if vehicle4Origin == 0:
+		vehicle4OriginPlainText = "Domestic"
+	else:
+		vehicle4OriginPlainText = "Imported"
+
+# Calculate vehicle 4 gross profit.
+
+	vehicle4Profit = int(vehicle4MSRP) - int(vehicle4Cost)
+
+# Adjust profit for imports based on 1.75% loss. 
+	
+	if vehicle4Origin == 1:
+		vehicle4ProfitAdjusted = vehicle4Profit * (1 - 0.0175)
+	else:
+		vehicle4ProfitAdjusted = vehicle4Profit
+
+#Add Vehicle 4 financial data to shipment totals.
+
+	shipmentMSRP = shipmentMSRP + vehicle4MSRP
+	shipmentCost = shipmentCost + vehicle4Cost
+	shipmentProfit = shipmentProfit + vehicle4Profit
+	shipmentProfitAdjusted = shipmentProfitAdjusted + vehicle4ProfitAdjusted
+
+
+#-----------------------------------------------------------------------------------------------
+# Collect vehicle 5 information via user input.
+	entryNumber = entryNumber + 1
+	print('Please answer the following questions pertaining to vehicle ', entryNumber, ': ')
+	vehicle5Name = input('Enter the vehicle name (ie: Silver 2024 Tesla Cybertruck): ')
+	vehicle5Cost = int(input('Enter the dealer cost for this vehicle in whole numbers, no $ sign: '))
+	vehicle5MSRP = int(input('Enter the vehicle MSRP in whole numbers, no $ sign: '))
+	vehicle5Origin = int(input('Enter the vehicle origin type. 0 = Domestic, 1 = Imported: '))
+
+# Convert origin code to plain text. 
+	
+	if vehicle5Origin == 0:
+		vehicle5OriginPlainText = "Domestic"
+	else:
+		vehicle5OriginPlainText = "Imported"
+
+# Calculate vehicle 5 gross profit.
+
+	vehicle5Profit = int(vehicle5MSRP) - int(vehicle5Cost)
+
+# Adjust profit for imports based on 1.75% loss. 
+	
+	if vehicle5Origin == 1:
+		vehicle5ProfitAdjusted = vehicle5Profit * (1 - 0.0175)
+	else:
+		vehicle5ProfitAdjusted = vehicle5Profit
+
+#Add Vehicle 5 financial data to shipment totals.
+
+	shipmentMSRP = shipmentMSRP + vehicle5MSRP
+	shipmentCost = shipmentCost + vehicle5Cost
+	shipmentProfit = shipmentProfit + vehicle5Profit
+	shipmentProfitAdjusted = shipmentProfitAdjusted + vehicle5ProfitAdjusted
+
+else: 
+	print('Yikes. Please come back when you have 5 vehicles. Thanks!')
+
+
+#------------------------------------------------------------------------------------------------
+
+# Individually print each vehicle with associated inputs
+
+print('----------------------------Vehicle 1---------------------------------------------------')
+
+print('VehicleName', vehicle1Name)
+print('MSRP: $', vehicle1MSRP)
+print('Dealer Cost: $', vehicle1Cost)
+print('Potential Profit: $', vehicle1Profit)
+print('Adjusted Potential Profit: $', vehicle1ProfitAdjusted)
+print('Vehicle Origin: ', vehicle1OriginPlainText)
+
+
+print('----------------------------Vehicle 2---------------------------------------------------')
+
+print('Vehicle Name', vehicle2Name)
+print('MSRP: $', vehicle2MSRP)
+print('Dealer Cost: $', vehicle2Cost)
+print('Potential Profit: $', vehicle2Profit)
+print('Adjusted Potential Profit: $', vehicle2ProfitAdjusted)
+print('Vehicle Origin: ', vehicle2OriginPlainText)
+
+
+print('----------------------------Vehicle 3---------------------------------------------------')
+
+print('Vehicle Name', vehicle3Name)
+print('MSRP: $', vehicle3MSRP)
+print('Dealer Cost: $', vehicle3Cost)
+print('Potential Profit: $', vehicle3Profit)
+print('Adjusted Potential Profit: $', vehicle3ProfitAdjusted)
+print('Vehicle Origin: ', vehicle3OriginPlainText)
+
+print('----------------------------Vehicle 4---------------------------------------------------')
+
+print('Vehicle Name', vehicle4Name)
+print('MSRP: $', vehicle4MSRP)
+print('Dealer Cost: $', vehicle4Cost)
+print('Potential Profit: $', vehicle4Profit)
+print('Adjusted Potential Profit: $', vehicle4ProfitAdjusted)
+print('Vehicle Origin: ', vehicle4OriginPlainText)
+
+print('----------------------------Vehicle 5---------------------------------------------------')
+
+print('Vehicle Name', vehicle5Name)
+print('MSRP: $', vehicle5MSRP)
+print('Dealer Cost: $', vehicle5Cost)
+print('Potential Profit: $', vehicle5Profit)
+print('Adjusted Potential Profit: $', vehicle5ProfitAdjusted)
+print('Vehicle Origin: ', vehicle5OriginPlainText)
+
+# Print shipment summary using accumulated shipment variables. 
+
+print('----------------------------------------------------------------------------------------')
+print('----------------------------Shipment Summary--------------------------------------------')
+print('----------------------------------------------------------------------------------------')
+
+print('Total vehicles in this shipment: ', entryNumber)
+print('Shipment Total MSRP: $', shipmentMSRP)
+print('Shipment Total Cost: $', shipmentCost)
+print('Shipment Total Profit: $', shipmentProfit)
+print('Shipment Total Profit (Adjusted): $', shipmentProfitAdjusted)
+
+
+# End of program. 
+
