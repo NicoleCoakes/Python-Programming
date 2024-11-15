@@ -1,0 +1,197 @@
+
+#Nicole Coakes and Nathan Hardie
+#MGMT586 Lab 4: Python and Excel Integration
+
+#import openpyx, create variables for reference, and name our worksheet.
+import openpyxl
+wb = openpyxl.Workbook()
+sheet = wb.active
+sheet.title = 'Expected Commission'
+
+#Define a function to calculate profit, called when the origin code is '1' for imports, and returning that figure to the user.
+
+def expectedProfit(passedMSRP, passedDealerCost):
+    adjustedProfit = (passedMSRP - passedDealerCost) * 0.9825
+    return adjustedProfit
+
+
+
+#Define a function to calculate expected commission based on the adjusted profit and the commission code. 
+#Needs to be called AFTER expectedProfit() runs, because it uses the adjustedProfit variable value as a parameter. 
+
+def expectedCommission(passedAdjustedProfit, passedCommissionCode):
+    if passedCommissionCode == 'A':
+        commission = passedAdjustedProfit * 0.35
+    elif passedCommissionCode == 'B':
+        commission = passedAdjustedProfit * 0.25
+    else:
+        commission = passedAdjustedProfit * 0.15
+    return commission
+
+
+
+#Define a function for appending a new vehicle onto the end of manifest.txt
+
+def andAnotherOne():
+    manifest = open('manifest.txt', 'a')
+    print('What is the name of the vehicle? Enter in format ColorYYYYMakeModel. (ex. Silver1995FordTaurus)')
+    vehicleName = input()
+    print('What is the Manufacturer Suggested Retail Price (MSRP)? Enter in whole dollars, with no dollar sign, commas, or decimals.')
+    msrp = input()
+    print('What was the dealership cost for the vehicle? Enter in whole dollars, with no dollar signs, commas, or decimals.')
+    dealerCost = input()
+    print('Is this vehicle domestic or imported? Enter 0 for domestic, or 1 for imported.')
+    originCode = input()
+    print('What is the expected rate of commission on this vehicle? A = 35%, B = 25%, C = 15%')
+    commissionRate = input()
+    #Group all input values as a single line of text to make user confirmation and passing back to manifest.txt more efficient.
+    #Print the entry for the user to review. 
+    vehicleEntry = (vehicleName) + ' ' + (msrp) + ' ' + (dealerCost) + ' ' + (originCode) + ' ' + commissionRate
+    print(vehicleEntry)
+    #Prompt the user to verify their vehicle entry for accuracy. 
+    print('If this entry is correct, please enter Y. If not, please enter N')
+    correct = input()
+    if correct == 'Y': #Write the entry to manifest.txt and close/save the file. 
+        manifest.write("\n" + vehicleEntry)
+        return(vehicleEntry)
+        manifest.close()
+    else: #Close manifest.txt and re-call the function so the user can re-enter their vehicle. 
+        manifest.close()
+        andAnotherOne()
+
+
+
+
+
+
+
+
+
+
+#Start of user interface
+
+#The following series of loops will offer the user the opportunity to do any of the following:
+# Ensure that the filename is compatible with the program, which is essential for the program to run as written. 
+# Allow the user to verify the contents of manifest.txt and add an unlimited number of additional vehicles as necessary. 
+# Review the final contents of manifest.txt
+
+
+#Welcome message
+print('Welcome to the KSM Vehicle Documentation System. Do you have a new manifest to add? Y/N: ')
+newCars = input()
+if newCars == 'Y': #Verify the filename so that all of the commands related to the file can run. 
+    print('Please ensure that your file is saved with filename manifest.txt. Press Y to proceed. Press any other button to close the program.')
+    correctFileName = input()
+    if correctFileName == 'Y': #Open, read, and display the contents of the file. 
+        manifest = open('manifest.txt')
+        manifestContents = manifest.read()
+        print('Here is the current contents of manifest.txt: ')
+        print(manifestContents)
+        manifest.close
+    else: #Prompt the user to rename the file appropriately, and exit the program. 
+        print('Please rename your file, close it, and re-start this program. Bye!')
+        exit()
+           
+else: #If there's no new manifest, close the program. 
+    print('Thank you for using the KSM vehicle documentation system. Bye!')
+    exit()
+      
+#Prompt the user to add any additional vehicles that aren't currently on the manifest. 
+print('Do you have any additional vehicles to add to this manifest? Y/N: ')
+moreCars = input()
+while moreCars == 'Y': #run the andAnotherOne() function defined above, re-open and read manifest.txt, and display to the user to confirm their addition.
+    andAnotherOne()
+    print('The following vehicle has been added to your manifest: ')
+    newManifest = open('manifest.txt')
+    newManifestContents = manifest.read()
+    print(newManifestContents)
+    newManifest.close 
+    print('Do you have any additional vehicles to add to the manifest? Y/N: ')
+    moreCars = input() #If Y, back through the while loop to run andAnotherOne() again. 
+else: #Display the final manifest contents and ask the user to verify accuracy before proceeding. 
+    print('Thanks for adding your vehicle(s)!')
+    print('The final contents of manifest.txt are as follows: ')
+    finalManifest = open('manifest.txt')
+    finalContents = finalManifest.read()
+    print(finalContents)
+    finalManifest.close
+    print('the next step will display a summary of your final manifest and create a commission spreadsheet.')
+    print('Are you ready to proceed to the next step? Y/N')
+    ready = input()
+    if ready == 'Y':
+        print('Thanks!')
+    else: 
+        print('You have updated manifest.txt and chosen not to proceed. The program will close now. Please re-run it if you need to add more vehicles.')
+        exit()
+
+#End of vehicle addition portion. By the time the user gets here, they should have confirmed that all of their
+#vehicles are correctly entered into manifest.txt. 
+
+
+
+# This portion of the program will split the text document into individual records by line of text, and store them in a list. 
+
+manifestFile = open('manifest.txt') #Open and read the final version of manifest.txt. 
+manifestContents = manifestFile.read()
+
+manifestList = [] #Create a list for the contents of mnifest.txt, and split it into records, delimiting by line break.
+manifestList = manifestContents.split('\n')
+
+#print(manifestList) #Added for desk check purposes. Commented out because it's not necessary for program function or user interface. 
+manifestFile.close #Close the file because we're done with it. 
+
+
+#Add column headers to our excel file to label the vehicle name and commission columns. 
+sheet.cell(row = 1, column = 1).value = 'Vehicle Name'
+sheet.cell(row = 1, column = 2).value = 'Expected Commission in $'
+
+
+
+#Loop to work through each item in manifestList and break it up delimited by space. 
+for i in range(len(manifestList)):
+    breakup = manifestList[i].split()
+#print(breakup) #Here for testing purposes. Commented out because it's not necessary for functionality or interface. 
+#Assign broken up list items to variables, referencing them based on their list position.
+    vehicleName = breakup[0]
+    msrp = float(breakup[1])
+    dealerCost = float(breakup[2])
+    originCode = breakup[3]
+    commissionCode = breakup[4]
+#Calculate profit, and if the vehicle is imported pass msrp and dealer cost to the expectedProfit() function to discount by 1.75%. 
+#It occurred to me that this could be more efficient if I passed only adjustedProfit to the function instead of having the function re-do the math. 
+    adjustedProfit = float(msrp - dealerCost)
+    if originCode == '1': #if the vehicle is imported, pass msrp and cost to adjustedProfit, and return gross profit discounted by 1.75%.
+        adjustedProfit = expectedProfit(msrp, dealerCost)
+    else: adjustedProfit = adjustedProfit #Do not adust the value of adjustedProfit if the origin code indicates that it is not an imported vehicle. 
+    commission = expectedCommission(adjustedProfit, commissionCode) #Pass adjusted profit to the expectedCommission() function to determine the value based on commission code. 
+
+    r = i + 2 #i + 2 because we added column headers above. Acounts for both the difference in positioning between python and excel and also the header row. 
+        
+#Pass the vehicleName and commission values to the excel spreadsheet for each item in manifestList    
+    sheet.cell(row = r, column = 1).value = vehicleName 
+    sheet.cell(row = r, column = 2).value = commission
+
+#print out the vehicle for the user so that they can quickly verify each vehicle displays correctly without having to open the spreadsheet. 
+    print('-----------------------------' 'Vehicle #', i, ': ---------------------------')
+    print('Vehicle Name: ', vehicleName)
+    print('The expected gross profit is: $', adjustedProfit)
+    print('The expected commission is: $', commission)
+
+
+#save the workbook as commission.xlsx and tell the user where they can find their file. 
+
+wb.save('commission.xlsx')
+print('----------------------------------------------------------------------')
+print('Your commission summary has been saved as commission.xlsx in the same file location as manifest.txt. Have a great day!')
+print('----------------------------------------------------------------------')
+
+
+
+#End of program
+
+
+
+
+
+
+
